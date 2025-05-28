@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import MessageList from '../components/MessageList.vue'
+import InputBar from '@/components/InputBar.vue'
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <MessageList />
+    <InputBar />
   </main>
 </template>
