@@ -1,6 +1,6 @@
 export enum Role {
 
-    user,
-    model
+    user = "user",
+    model = "model",
 
 }

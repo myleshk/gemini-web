@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Role } from '@/models/Role';
 import { useMessageStore } from '@/stores/message';
 
 const inputModel = defineModel({ type: String })
@@ -8,13 +7,9 @@ const messageStore = useMessageStore();
 function send() {
     const text = inputModel.value ?? "";
 
-    messageStore.add({
-        role: Role.user,
-        parts: [
-            { text: text }
-        ]
-    })
-    inputModel.value = ""
+    messageStore.userInput(text).then(() => {
+        inputModel.value = ""
+    });
 }
 </script>
 <template>
@@ -32,7 +27,8 @@ function send() {
     border: 1px solid #5E5E5E;
 
     textarea {
-        border-radius: 12px;
+        border-top-left-radius: 12px;
+        border-bottom-left-radius: 12px;
         background-color: transparent;
         border: none;
         font-size: 1rem;
@@ -40,6 +36,9 @@ function send() {
         padding: 12px;
         width: 100%;
         color: white;
+        outline: none;
+        box-shadow: none;
+        resize: none;
     }
 }
 

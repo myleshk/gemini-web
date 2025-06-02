@@ -3,7 +3,7 @@ import { useMessageStore } from '@/stores/message';
 import UserMessage from './UserMessage.vue';
 import ModelMessage from './ModelMessage.vue';
 import { Role } from '@/models/Role';
-import { computed, ref, watch } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 
 const messageStore = useMessageStore();
 const messages = computed(() => messageStore.messages);
@@ -11,12 +11,14 @@ const messages = computed(() => messageStore.messages);
 const containerRef = ref<HTMLElement | null>(null);
 
 function scrollToBottom() {
-  if (containerRef.value) {
-    containerRef.value.scrollTo({
-      top: containerRef.value.scrollHeight + 1000, // Add some extra space to ensure the last message is fully visibl
-      behavior: 'smooth'
-    });
-  }
+  nextTick(() => {
+    if (containerRef.value) {
+      containerRef.value.scrollTo({
+        top: containerRef.value.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
+  });
 }
 
 watch(messages, () => {
